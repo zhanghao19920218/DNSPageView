@@ -38,6 +38,7 @@ public class PageStyle {
     public var titleViewSelectedColor: UIColor = UIColor.clear
     public var titleMargin: CGFloat = 30
     public var titleInset: CGFloat = 0
+    public var titleBottomBackgroundColor: UIColor = .black
 
     
     /// titleView 滑动
@@ -67,6 +68,7 @@ public class PageStyle {
     /// contentView
     public var isContentScrollEnabled : Bool = true
     public var contentViewBackgroundColor = UIColor.white
+    
     
     
     public init() {

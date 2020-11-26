@@ -79,6 +79,8 @@ public class PageTitleView: UIView {
     
     private (set) public var titles: [String] = [String]()
     
+    private (set) public var titleBottomLine: UIView = UIView()
+    
     
     private lazy var normalRGB: ColorRGB = style.titleColor.getRGB()
     private lazy var selectRGB: ColorRGB = style.titleSelectedColor.getRGB()
@@ -190,7 +192,7 @@ public class PageTitleView: UIView {
         if style.isShowCoverView {
             UIView.animate(withDuration: 0.25, animations: {
                 self.coverView.frame.size.width = self.style.isTitleViewScrollEnabled ?
-                    (targetLabel.frame.width + self.style.coverMargin * 2) : targetLabel.frame.width
+                    (targetLabel.frame.width + self.style.coverMargin * 2) : (targetLabel.frame.width - self.style.coverMargin * 2)
                 self.coverView.center.x = targetLabel.center.x
             })
         }
@@ -333,7 +335,7 @@ extension PageTitleView {
     private func layoutCoverView() {
         guard currentIndex < titleLabels.count else { return }
         let label = titleLabels[currentIndex]
-        var width = label.frame.width
+        var width = label.frame.width - style.coverMargin * 2
         let height = style.coverViewHeight
         if style.isTitleViewScrollEnabled {
             width += 2 * style.coverMargin
@@ -351,6 +353,13 @@ extension PageTitleView {
         bottomLine.frame.size.height = style.bottomLineHeight
         bottomLine.center.x = label.center.x
         bottomLine.frame.origin.y = frame.height - bottomLine.frame.height
+        
+        titleBottomLine.backgroundColor = style.titleBottomBackgroundColor
+        titleBottomLine.frame.size.width = UIScreen.main.bounds.size.width - 30
+        titleBottomLine.frame.size.height = 0.5
+        titleBottomLine.center.x = self.center.x
+        titleBottomLine.frame.origin.y = frame.height - 0.5
+        
     }
 }
 
@@ -465,7 +474,7 @@ extension PageTitleView: PageContentViewDelegate {
             if self.style.isShowCoverView {
                 self.coverView.frame.size.width = self.style.isTitleViewScrollEnabled ?
                     (targetLabel.frame.width + 2 * self.style.coverMargin) :
-                    targetLabel.frame.width
+                    (targetLabel.frame.width - self.style.coverMargin * 2)
                 self.coverView.center.x = targetLabel.center.x
             }
         }
@@ -473,6 +482,3 @@ extension PageTitleView: PageContentViewDelegate {
     }
     
 }
-
-
-
