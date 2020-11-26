@@ -278,6 +278,7 @@ extension PageTitleView {
         bottomLine.backgroundColor = style.bottomLineColor
         bottomLine.layer.cornerRadius = style.bottomLineRadius
         scrollView.addSubview(bottomLine)
+        scrollView.addSubview(titleBottomLine)
     }
     
     private func configureCoverView() {
